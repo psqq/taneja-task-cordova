@@ -1,5 +1,8 @@
 import App from "./views/App";
 import { mount } from 'redom';
+import { polyfill } from "mobile-drag-drop";
+
+polyfill();
 
 class Game {
     constructor() { }

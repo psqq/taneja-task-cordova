@@ -29,6 +29,9 @@ export default class Expression extends EventEmitter {
             this.el.appendChild(op);
         }
         this.ops.forEach(el => {
+            el.addEventListener('dragenter', ev => {
+                ev.preventDefault();
+            });
             el.addEventListener('dragover', ev => {
                 ev.preventDefault();
             });
