@@ -20,6 +20,7 @@
         "lodash": "^4.17.15",
         "moment": "^2.25.3",
         "mustache": "^4.0.1",
+        "redom": "^3.26.0",
         "victor": "^1.1.0"
     },
     "devDependencies": {

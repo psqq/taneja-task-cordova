@@ -7066,6 +7066,11 @@ redent@^1.0.0:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
 
+redom@^3.26.0:
+  version "3.26.0"
+  resolved "https://registry.yarnpkg.com/redom/-/redom-3.26.0.tgz#c947192222e0622710400d2126806569ca242c30"
+  integrity sha512-rAo03O4VnzUJfTGeku9CvDw5Avi5Mx7oe07CnK4I8VvijVF2om7pIO5jvfaCGiHfFQtIQAsNPWv5ce8LLnEOXw==
+
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-8.2.0.tgz#e5de7111d655e7ba60c057dbe9ff37c87e65cdec"
