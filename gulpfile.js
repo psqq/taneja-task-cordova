@@ -1,28 +1,17 @@
 const gulp = require('gulp');
 const shell = require('gulp-shell');
-const sass = require('gulp-sass');
 const webpackStream = require('webpack-stream');
 const named = require('vinyl-named');
 const clean = require('gulp-clean');
 const uglify = require('gulp-uglify');
 const webpack = require('webpack');
 const webpackConfig = require('./gulp/webpack.config');
+const WebpackDevServer = require("webpack-dev-server");
+const gutil = require("gulp-util");
 
 gulp.task('clean', function () {
-    return gulp.src('www', { read: false, allowEmpty: true })
+    return gulp.src(['www', 'www-dev'], { read: false, allowEmpty: true })
         .pipe(clean());
-});
-
-sass.compiler = require('node-sass');
-
-gulp.task('sass', function () {
-    return gulp.src('src/css/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('www/css'));
-});
-
-gulp.task('sass:watch', function () {
-    gulp.watch('src/css/**/*.scss', ['sass']);
 });
 
 gulp.task('dev-build-js', () =>
@@ -57,9 +46,9 @@ gulp.task('cordova-run-android', shell.task('npx cordova run android'));
 
 gulp.task('cordova-debug-build-android', shell.task('npx cordova build android'));
 
-gulp.task('dev-build', gulp.series('dev-build-js', 'sass', 'html', 'assets'));
+gulp.task('dev-build', gulp.series('dev-build-js', 'html', 'assets'));
 
-gulp.task('build', gulp.series('build-js', 'sass', 'html', 'assets'));
+gulp.task('build', gulp.series('build-js', 'html', 'assets'));
 
 gulp.task('watch', () => {
     return gulp.watch([
@@ -80,3 +69,17 @@ gulp.task('dev-build-android', gulp.series('clean', 'build', 'cordova-debug-buil
 gulp.task('default', gulp.series('dev'));
 
 gulp.task('depsgraph', shell.task('madge ./src/js/index.js -i ./tools/index.png'));
+
+gulp.task("webpack-dev-server", function (callback) {
+    // Start a webpack-dev-server
+    var compiler = webpack(webpackConfig.webpackDevServerConfig);
+    new WebpackDevServer(compiler, {
+        // server and middleware options
+    }).listen(8080, "localhost", function (err) {
+        if (err) throw new gutil.PluginError("webpack-dev-server", err);
+        // Server listening
+        gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
+        // keep the server alive or continue?
+        // callback();
+    });
+});
