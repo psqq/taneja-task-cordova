@@ -1,4 +1,4 @@
-import * as game from './game';
+import game from './game';
 import { loadAllImages } from './images';
 
 
@@ -20,6 +20,7 @@ const app = {
         await loadAllImages();
     },
     async init() {
+        game.init();
     },
     async run() {
         game.start();

@@ -1,6 +1,16 @@
-import renderer from "./renderer";
+import App from "./views/App";
+import { mount } from 'redom';
 
-export function start() {
-    renderer.init();
-    renderer.mountApp();
+class Game {
+    constructor() { }
+    init() {
+        this.appView = new App();
+    }
+    start() {
+        mount(document.querySelector(".app"), this.appView);
+    }
 }
+
+const game = new Game();
+
+export default game;

@@ -10,11 +10,17 @@ const styles = {
             padding: '20px',
             overflow: 'hidden',
         },
+        button: {
+            margin: '10px',
+        }
     },
     app: {
     },
     op: {
         padding: '0 5px',
+    },
+    expression: {
+        'font-size': '20px',
     },
     operations: {
         display: 'flex',
