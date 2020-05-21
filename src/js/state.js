@@ -1,11 +1,22 @@
 import config from "./config";
 
 const initialState = {
-    screen: config.firstScreen,
+    completedLevels: 0,
 };
 
-const state = {
+let state = {
     ...initialState,
 };
+
+export function saveState() {
+    const key = `${config.appName}-${config.version}-state`;
+    localStorage.setItem(key, JSON.stringify(state));
+}
+
+export function loadState() {
+    const key = `${config.appName}-${config.version}-state`;
+    const stateStr = localStorage.getItem(key);
+    state = JSON.parse(stateStr);
+}
 
 export default state;

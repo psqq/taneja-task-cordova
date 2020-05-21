@@ -1,11 +1,10 @@
 import { el, text } from 'redom';
 import classes from '../style';
-import { create, all } from 'mathjs'
-import Expression from './Expression';
-
-const mathjs = create(all, {
-    number: 'Fraction'
-});
+import Game from './Game';
+import Levels from './Levels';
+import ShowManager from '../z-classes/show-manager';
+import LevelComplete from './LevelComplete';
+import state, { saveState } from '../state';
 
 export default class App {
     constructor() {
@@ -13,69 +12,44 @@ export default class App {
             class: classes.app,
         },
             [
-                this.resetBtn = el("button", {
-                }, [
-                    text("Reset")
-                ]),
-                this.expr = new Expression(),
-                el("div", {
-                    class: classes.answer,
-                }, [
-                    this.answer = text("6")
-                ]),
-                el("div", {
-                    class: classes.operations,
-                }, this.operations = [
-                    el("span", {
-                        draggable: true,
-                    },
-                        [
-                            text("+")
-                        ]),
-                    el("span", {
-                        draggable: true,
-                    },
-                        [
-                            text("-")
-                        ]),
-                    el("span", {
-                        draggable: true,
-                    },
-                        [
-                            text("*")
-                        ]),
-                    el("span", {
-                        draggable: true,
-                    },
-                        [
-                            text("/")
-                        ]),
-                ]),
-            ],
+                this.game = new Game(),
+                this.levels = new Levels(),
+                this.levelComplete = new LevelComplete(),
+            ]
         );
-        this.operations.forEach(el => {
-            el.addEventListener('dragstart', ev => {
-                ev.dataTransfer.setData(
-                    'op',
-                    el.innerText.trim(),
-                );
-            });
+        this.showManager = new ShowManager({
+            game: this.game,
+            levels: this.levels,
+            levelComplete: this.levelComplete,
         });
-        this.expr.on("changed", () => {
-            this.updateAnswer();
-        });
-        this.resetBtn.addEventListener('click', () => {
-            this.expr.reset();
-        });
-        this.updateAnswer();
+        this.showLevels();
+        this.bindEvents();
     }
-    updateAnswer() {
-        let val = mathjs.evaluate(this.expr.el.innerText);
-        let s = val;
-        if (val.d != 1) {
-            s = `${val.n} / ${val.d}`;
-            s += ' = ' + val;
-        }
-        this.answer.data = s;
+    bindEvents() {
+        this.levels.on('click-on-level', number => {
+            this.startGame(number);
+        });
+        this.game.on("back", () => {
+            this.showLevels();
+        });
+        this.game.on("complete", number => {
+            state.completedLevels = Math.max(state.completedLevels, number);
+            saveState();
+            this.showManager.showOnly('levelComplete');
+        });
+        this.levelComplete.on("goto-levels", () => {
+            this.showLevels();
+        });
+        this.levelComplete.on("next", () => {
+            this.startGame(state.completedLevels + 1);
+        });
+    }
+    startGame(number) {
+        this.showManager.showOnly('game');
+        this.game.start(number);
+    }
+    showLevels() {
+        this.levels.update();
+        this.showManager.showOnly('levels');
     }
 }

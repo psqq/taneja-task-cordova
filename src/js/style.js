@@ -1,5 +1,6 @@
-import jss from 'jss'
-import preset from 'jss-preset-default'
+import jss from 'jss';
+import preset from 'jss-preset-default';
+import '@fortawesome/fontawesome-free/js/all';
 
 jss.setup(preset());
 
@@ -21,6 +22,33 @@ const styles = {
     },
     expression: {
         'font-size': '20px',
+    },
+    hidden: {
+        display: 'none',
+    },
+    levels: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        '&>div': {
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100px',
+            height: '100px',
+            border: '1px solid black',
+            margin: '10px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '30px',
+            cursor: 'pointer',
+            borderRadius: '10px',
+        },
+        '& .completed': {
+            color: 'orange;',
+        },
+        '&>div.disabled': {
+            opacity: '0.5',
+            cursor: 'default',
+        },
     },
     operations: {
         display: 'flex',

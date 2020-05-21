@@ -13,38 +13,42 @@ const devConfig = {
         publicPath: '/js/',
     },
     devtool: 'inline-source-map',
-    // module: {
-    //     rules: [
-    //         {
-    //             test: /\.(js)$/,
-    //             exclude: /(node_modules)/,
-    //             loader: 'babel-loader',
-    //             query: {
-    //                 presets: [
-    //                     [
-    //                         "@babel/preset-env",
-    //                         {
-    //                             targets: {
-    //                                 chrome: '33',
-    //                             },
-    //                             useBuiltIns: 'usage',
-    //                             debug: false,
-    //                             corejs: 3,
-    //                         },
-    //                     ]
-    //                 ],
-    //                 plugins: [
-    //                     [
-    //                         "@babel/plugin-transform-runtime",
-    //                         {
-    //                             "regenerator": true
-    //                         }
-    //                     ]
-    //                 ],
-    //             }
-    //         }
-    //     ]
-    // },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            // {
+            //     test: /\.(js)$/,
+            //     exclude: /(node_modules)/,
+            //     loader: 'babel-loader',
+            //     query: {
+            //         presets: [
+            //             [
+            //                 "@babel/preset-env",
+            //                 {
+            //                     targets: {
+            //                         chrome: '33',
+            //                     },
+            //                     useBuiltIns: 'usage',
+            //                     debug: false,
+            //                     corejs: 3,
+            //                 },
+            //             ]
+            //         ],
+            //         plugins: [
+            //             [
+            //                 "@babel/plugin-transform-runtime",
+            //                 {
+            //                     "regenerator": true
+            //                 }
+            //             ]
+            //         ],
+            //     }
+            // },
+        ],
+    },
 };
 
 const webpackDevServerConfig = {
@@ -64,38 +68,42 @@ const webpackDevServerConfig = {
             template: './src/index.dev.html'
         })
     ],
-    // module: {
-    //     rules: [
-    //         {
-    //             test: /\.(js)$/,
-    //             exclude: /(node_modules)/,
-    //             loader: 'babel-loader',
-    //             query: {
-    //                 presets: [
-    //                     [
-    //                         "@babel/preset-env",
-    //                         {
-    //                             targets: {
-    //                                 chrome: '33',
-    //                             },
-    //                             useBuiltIns: 'usage',
-    //                             debug: false,
-    //                             corejs: 3,
-    //                         },
-    //                     ]
-    //                 ],
-    //                 plugins: [
-    //                     [
-    //                         "@babel/plugin-transform-runtime",
-    //                         {
-    //                             "regenerator": true
-    //                         }
-    //                     ]
-    //                 ],
-    //             }
-    //         }
-    //     ]
-    // },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            // {
+            //     test: /\.(js)$/,
+            //     exclude: /(node_modules)/,
+            //     loader: 'babel-loader',
+            //     query: {
+            //         presets: [
+            //             [
+            //                 "@babel/preset-env",
+            //                 {
+            //                     targets: {
+            //                         chrome: '33',
+            //                     },
+            //                     useBuiltIns: 'usage',
+            //                     debug: false,
+            //                     corejs: 3,
+            //                 },
+            //             ]
+            //         ],
+            //         plugins: [
+            //             [
+            //                 "@babel/plugin-transform-runtime",
+            //                 {
+            //                     "regenerator": true
+            //                 }
+            //             ]
+            //         ],
+            //     }
+            // },
+        ],
+    },
 };
 
 const prodConfig = {
@@ -111,6 +119,10 @@ const prodConfig = {
     },
     module: {
         rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
             {
                 test: /\.(js)$/,
                 exclude: /(node_modules)/,
@@ -138,8 +150,8 @@ const prodConfig = {
                         ]
                     ],
                 }
-            }
-        ]
+            },
+        ],
     },
 };
 
