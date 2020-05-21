@@ -4,7 +4,7 @@ const initialState = {
     completedLevels: 0,
 };
 
-let state = {
+const state = {
     ...initialState,
 };
 
@@ -16,7 +16,7 @@ export function saveState() {
 export function loadState() {
     const key = `${config.appName}-${config.version}-state`;
     const stateStr = localStorage.getItem(key);
-    state = JSON.parse(stateStr);
+    Object.assign(state, JSON.parse(stateStr));
 }
 
 export default state;
